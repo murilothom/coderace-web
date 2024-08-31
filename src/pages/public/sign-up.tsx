@@ -127,19 +127,6 @@ export const SignUp = () => {
           </Grid>
           <Grid size={12}>
             <TextField
-              id="sector"
-              name="sector"
-              value={formik.values.sector ?? ''}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              label="Setor *"
-              fullWidth
-              error={formik.touched.sector && Boolean(formik.errors.sector)}
-              helperText={formik.touched.sector && formik.errors.sector}
-            />
-          </Grid>
-          <Grid size={12}>
-            <TextField
               id="email"
               name="email"
               value={formik.values.email ?? ''}
@@ -149,6 +136,19 @@ export const SignUp = () => {
               fullWidth
               error={formik.touched.email && Boolean(formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
+            />
+          </Grid>
+          <Grid size={12}>
+            <TextField
+              id="sector"
+              name="sector"
+              value={formik.values.sector ?? ''}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              label="Setor do responsável*"
+              fullWidth
+              error={formik.touched.sector && Boolean(formik.errors.sector)}
+              helperText={formik.touched.sector && formik.errors.sector}
             />
           </Grid>
           <Grid size={12}>
