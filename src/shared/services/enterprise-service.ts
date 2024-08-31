@@ -4,7 +4,7 @@ import { Enterprise } from '../types/Enterprise';
 import authService from './auth-service';
 
 export class EnterprisesService {
-  private readonly baseURL = `https://app.empsolucoes.site/empresa`;
+  private readonly baseURL = `${import.meta.env.VITE_BACKEND_URL}/empresa`;
 
   constructor(private service: Api) {}
 
