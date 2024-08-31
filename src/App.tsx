@@ -3,8 +3,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import { Router } from './routes/router';
-import { theme } from './styles/themes/default';
 import { AlertProvider } from './shared/contexts/alert-context';
+import { theme } from './styles/themes/default';
 
 function App() {
   return (

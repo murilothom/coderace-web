@@ -1,22 +1,22 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-// import { useUserContext } from '../shared/contexts/user-context';
+import { useEmployeeContext } from '../shared/contexts/employee-context';
 
 interface PublicRouteProps {
   children: React.ReactNode;
 }
 
 export const PublicRoute = ({ children }: PublicRouteProps) => {
-  // const { user, isFetchingUser } = useUserContext();
+  const { employee, isFetchingEmployee } = useEmployeeContext();
 
-  // if (isFetchingUser) {
-  //   return null;
-  // }
+  if (isFetchingEmployee) {
+    return null;
+  }
 
-  // if (user) {
-  //   return <Navigate to="/" replace />;
-  // }
+  if (employee) {
+    return <Navigate to="/" replace />;
+  }
 
   return <>{children}</>;
 };

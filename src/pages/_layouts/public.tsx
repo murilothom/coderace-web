@@ -20,7 +20,8 @@ export const PublicLayout = () => {
       <Box
         sx={{
           width: '100vw',
-          height: '100vh',
+          minHeight: '100vh',
+          height: '100%',
           maxWidth: mdDown ? '100%' : '34rem',
         }}
       >
@@ -59,7 +60,7 @@ export const PublicLayout = () => {
               fontWeight={300}
               color={theme.palette.primary.contrastText}
             >
-              As melhores soluções você encontrar aqui!
+              Registros de pontos e gestão de colaboradores
             </Typography>
           </Box>
         </Box>

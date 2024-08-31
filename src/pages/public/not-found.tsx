@@ -9,23 +9,23 @@ export const NotFound = () => {
 
       <Box
         sx={{
-          maxWidth: { xs: '90%', sm: '40rem' }, 
+          maxWidth: { xs: '90%', sm: '40rem' },
           margin: 'auto',
           height: '100%',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           flexDirection: 'column',
-          padding: { xs: 2, sm: 4 }, 
+          padding: { xs: 2, sm: 4 },
         }}
       >
         <Typography
           variant="h2"
           fontWeight={500}
-          textAlign="center" 
+          textAlign="center"
           sx={{
-            fontSize: { xs: '1.5rem', sm: '2.5rem' }, 
-            mb: 2, 
+            fontSize: { xs: '1.5rem', sm: '2.5rem' },
+            mb: 2,
           }}
         >
           Oops! Parece que a página que você tentou acessar não existe.
@@ -33,11 +33,11 @@ export const NotFound = () => {
         <Typography
           variant="h6"
           fontWeight={400}
-          textAlign="center" 
+          textAlign="center"
           width="100%"
           sx={{
-            fontSize: { xs: '1rem', sm: '1.25rem' }, 
-            mt: 2, 
+            fontSize: { xs: '1rem', sm: '1.25rem' },
+            mt: 2,
           }}
         >
           Voltar para a{' '}

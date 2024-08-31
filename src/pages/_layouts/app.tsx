@@ -1,9 +1,12 @@
 import { Box, Paper } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 
+import { useEmployeeContext } from '../../shared/contexts/employee-context';
+import { Role } from '../../shared/types/Employee';
 import { Header } from './components/header';
 
 export const AppLayout = () => {
+  const { employee } = useEmployeeContext();
   return (
     <Box>
       <Header />
@@ -18,7 +21,13 @@ export const AppLayout = () => {
         <Box
           sx={{
             height: '100%',
-            marginLeft: { sm: '108px', xs: '16px' },
+            marginLeft: {
+              sm:
+                employee && [Role.ADMIN, Role.OWNER].includes(employee?.role)
+                  ? '108px'
+                  : '42px',
+              xs: '16px',
+            },
             marginRight: { sm: '42px', xs: '16px' },
             my: '34px',
           }}

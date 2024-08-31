@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-// import { useUserContext } from '../shared/contexts/user-context';
+import { useEmployeeContext } from '../shared/contexts/employee-context';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -12,17 +12,17 @@ export const ProtectedRoute = ({
   children,
   shouldBeAuthenticated,
 }: ProtectedRouteProps) => {
-  // const { user, isFetchingUser } = useUserContext();
+  const { employee, isFetchingEmployee } = useEmployeeContext();
 
-  // if (isFetchingUser) return null;
+  if (isFetchingEmployee) return null;
 
-  // if (!shouldBeAuthenticated && user) {
-  //   return <Navigate to="/" replace />;
-  // }
+  if (!shouldBeAuthenticated && employee) {
+    return <Navigate to="/" replace />;
+  }
 
-  // if (shouldBeAuthenticated && !user) {
-  //   return <Navigate to="/entrar" replace />;
-  // }
+  if (shouldBeAuthenticated && !employee) {
+    return <Navigate to="/entrar" replace />;
+  }
 
   return <>{children}</>;
 };

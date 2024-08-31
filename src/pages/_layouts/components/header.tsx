@@ -1,9 +1,20 @@
-import { AppBar, Container, Toolbar, useTheme } from '@mui/material';
+import {
+  AppBar,
+  Container,
+  Toolbar,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 
-// import { AvatarMenu } from './avatar-menu';
+import { useEmployeeContext } from '../../../shared/contexts/employee-context';
+import { Role } from '../../../shared/types/Employee';
+import { AvatarMenu } from './avatar-menu';
 import { DrawerMenu } from './drawer-menu';
+import { Logo } from './logo';
 
 export const Header = () => {
+  const { employee } = useEmployeeContext();
   const theme = useTheme();
 
   return (
@@ -20,9 +31,25 @@ export const Header = () => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <DrawerMenu />
+          {employee && [Role.ADMIN, Role.OWNER].includes(employee?.role) ? (
+            <DrawerMenu />
+          ) : (
+            <Typography
+              noWrap
+              component={RouterLink}
+              to="/"
+              sx={{
+                color: theme.palette.primary.contrastText,
+                textDecoration: 'none',
+                ml: { sm: '12px', xs: '6px' },
+                display: 'flex',
+              }}
+            >
+              <Logo />
+            </Typography>
+          )}
 
-          {/* <AvatarMenu /> */}
+          <AvatarMenu />
         </Toolbar>
       </Container>
     </AppBar>
