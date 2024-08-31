@@ -107,7 +107,7 @@ export const UpdateEmployee = () => {
       component="form"
       onSubmit={formik.handleSubmit}
     >
-      <Helmet title="Configurações" />
+      <Helmet title="Editar colaborador" />
 
       <Grid2 size={12} mb={2}>
         <Breadcrumbs breadcrumbs={breadcrumbs} />

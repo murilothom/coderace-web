@@ -7,6 +7,7 @@ import { EmployeeData } from '../pages/app/employee-data';
 import { EmployeeProfile } from '../pages/app/employee-profile';
 import { Home } from '../pages/app/home';
 import { ListEmployees } from '../pages/app/list-employees';
+import { ListFeedbacks } from '../pages/app/list-feedbacks';
 import { Logout } from '../pages/app/logout';
 import { RegisterRecordTime } from '../pages/app/register-record-time';
 import { ResetPassword } from '../pages/app/reset-password';
@@ -66,6 +67,7 @@ export const Router = () => {
             <Route index element={<Home />} />
             <Route path="/perfil" element={<EmployeeProfile />} />
             <Route path="/configuracoes" element={<EmployeeData />} />
+            <Route path="/feedbacks" element={<ListFeedbacks />} />
             <Route path="/colaboradores" element={<ListEmployees />} />
             <Route path="/colaboradores/novo" element={<CreateEmployee />} />
             <Route path="/colaboradores/:id" element={<UpdateEmployee />} />

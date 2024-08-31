@@ -85,7 +85,7 @@ export const CreateEmployee = () => {
       component="form"
       onSubmit={formik.handleSubmit}
     >
-      <Helmet title="Configurações" />
+      <Helmet title="Criar colaborador" />
 
       <Grid2 size={12} mb={2}>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
