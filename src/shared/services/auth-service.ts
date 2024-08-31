@@ -4,7 +4,7 @@ import type { RecoverPasswordByEmailSchema } from '../schemas/recover-password-b
 import type { SignInSchema } from '../schemas/sign-in-schema';
 
 export class AuthService {
-  private readonly baseURL = `${import.meta.env.VITE_BACKEND_URL}/autenticacao`;
+  private readonly baseURL = `https://app.empsolucoes.site/autenticacao`;
   private readonly TOKEN_KEY = '@EMP-TOKEN';
 
   constructor(private service: Api) {}

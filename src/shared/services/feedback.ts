@@ -3,7 +3,7 @@ import { Question } from '../types/Question';
 import authService from './auth-service';
 
 export class FeedbackService {
-  private readonly baseURL = `${import.meta.env.VITE_BACKEND_URL}/feedback`;
+  private readonly baseURL = `https://app.empsolucoes.site/feedback`;
 
   constructor(private service: Api) {}
 

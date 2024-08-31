@@ -4,7 +4,7 @@ import authService from './auth-service';
 export type AiFeedbackResponse = Record<string, string>;
 
 export class AiService {
-  private readonly baseURL = `${import.meta.env.VITE_IA_URL}`;
+  private readonly baseURL = `https://ai.empsolucoes.site`;
 
   constructor(private service: Api) {}
 
