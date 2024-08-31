@@ -1,3 +1,4 @@
+import { Add, Feedback, Person } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import {
@@ -19,21 +20,15 @@ import { Logo } from './logo';
 const pages = [
   {
     id: 1,
-    title: 'Menu 1',
-    icon: <InboxIcon fontSize="medium" />,
-    to: '/menu-1',
+    title: 'Colaboradores',
+    icon: <Person fontSize="medium" />,
+    to: '/colaboradores',
   },
   {
     id: 2,
-    title: 'Menu 2',
-    icon: <InboxIcon fontSize="medium" />,
-    to: '/menu-2',
-  },
-  {
-    id: 3,
-    title: 'Menu 3',
-    icon: <InboxIcon fontSize="medium" />,
-    to: '/menu-3',
+    title: 'Feedbacks',
+    icon: <Feedback fontSize="medium" />,
+    to: '/feedbacks',
   },
 ];
 

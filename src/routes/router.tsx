@@ -2,11 +2,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { AppLayout } from '../pages/_layouts/app';
 import { PublicLayout } from '../pages/_layouts/public';
+import { CreateEmployee } from '../pages/app/create-employee';
 import { EmployeeData } from '../pages/app/employee-data';
 import { EmployeeProfile } from '../pages/app/employee-profile';
+import { Home } from '../pages/app/home';
+import { ListEmployees } from '../pages/app/list-employees';
 import { Logout } from '../pages/app/logout';
 import { RegisterRecordTime } from '../pages/app/register-record-time';
 import { ResetPassword } from '../pages/app/reset-password';
+import { UpdateEmployee } from '../pages/app/update-employee';
 import { ChangePasswordWithEmailAndCode } from '../pages/public/change-password-with-email-and-code';
 import { Error } from '../pages/public/error';
 import { NotFound } from '../pages/public/not-found';
@@ -59,9 +63,12 @@ export const Router = () => {
               </ProtectedRoute>
             }
           >
-            <Route index element={<RegisterRecordTime />} />
+            <Route index element={<Home />} />
             <Route path="/perfil" element={<EmployeeProfile />} />
             <Route path="/configuracoes" element={<EmployeeData />} />
+            <Route path="/colaboradores" element={<ListEmployees />} />
+            <Route path="/colaboradores/novo" element={<CreateEmployee />} />
+            <Route path="/colaboradores/:id" element={<UpdateEmployee />} />
             <Route
               path="/configuracoes/redefinir-senha"
               element={<ResetPassword />}

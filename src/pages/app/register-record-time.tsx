@@ -8,51 +8,35 @@ import {
   DialogTitle,
   Typography,
 } from '@mui/material';
-import { isAxiosError } from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useAlertContext } from '../../shared/contexts/alert-context';
 import { useEmployeeContext } from '../../shared/contexts/employee-context';
-import recordTimesService from '../../shared/services/record-times-service';
 
-export const RegisterRecordTime = () => {
-  const [isRegisteringRecordTime, setIsRegisteringRecordTime] = useState(false);
+interface RegisterRecordTimeProps {
+  isLoading: boolean;
+  handleConfirm: () => Promise<void>;
+  openModal: () => void;
+  closeModal: () => void;
+  isModalOpen: boolean;
+}
+
+export const RegisterRecordTime = ({
+  handleConfirm,
+  isLoading,
+  closeModal,
+  openModal,
+  isModalOpen,
+}: RegisterRecordTimeProps) => {
   const { employee, isFetchingEmployee } = useEmployeeContext();
-  const { showAlert } = useAlertContext();
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [openModal, setOpenModal] = useState(false); // Estado para controlar o modal
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
 
-    // Limpar o intervalo quando o componente for desmontado
     return () => clearInterval(interval);
   }, []);
-
-  const handleOpenModal = () => {
-    setOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
-
-  const handleConfirm = async () => {
-    try {
-      setIsRegisteringRecordTime(true);
-      await recordTimesService.registerRecordTime();
-      showAlert('Registro de ponto efetuado com sucesso!');
-      setOpenModal(false);
-    } catch (error) {
-      if (isAxiosError(error)) {
-        showAlert(error?.response?.data?.message, 'error');
-      }
-    } finally {
-      setIsRegisteringRecordTime(false);
-    }
-  };
 
   return (
     <>
@@ -88,8 +72,8 @@ export const RegisterRecordTime = () => {
               <Button
                 sx={{ minWidth: '200px' }}
                 variant="contained"
-                onClick={handleOpenModal}
-                disabled={isRegisteringRecordTime}
+                onClick={openModal}
+                disabled={isLoading}
               >
                 Registrar ponto
               </Button>
@@ -109,20 +93,20 @@ export const RegisterRecordTime = () => {
         )}
       </Box>
 
-      <Dialog open={openModal} onClose={handleCloseModal}>
+      <Dialog open={isModalOpen} onClose={closeModal}>
         <DialogTitle>Confirmação</DialogTitle>
         <DialogContent>
           <Typography>Tem certeza de que deseja registrar o ponto?</Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseModal} color="primary">
+          <Button onClick={closeModal} color="primary">
             Cancelar
           </Button>
           <Button
             onClick={handleConfirm}
             color="primary"
             variant="contained"
-            disabled={isRegisteringRecordTime}
+            disabled={isLoading}
           >
             Confirmar
           </Button>
