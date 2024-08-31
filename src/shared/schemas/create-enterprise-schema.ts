@@ -4,6 +4,7 @@ export const createEnterpriseSchema = Yup.object().shape({
   name: Yup.string().required('Nome é obrigatório'),
   email: Yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
   enterpriseName: Yup.string().required('Nome da empresa é obrigatório'),
+  sector: Yup.string().required('Setor é obrigatório'),
   document: Yup.string()
     .required('CNPJ é obrigatório')
     .length(14, 'CNPJ inválido'),

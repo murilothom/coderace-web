@@ -57,6 +57,7 @@ export const SignUp = () => {
       email: '',
       document: '',
       enterpriseName: '',
+      sector: '',
       password: '',
       confirmPassword: '',
     },
@@ -69,6 +70,7 @@ export const SignUp = () => {
           confirmPassword: data.confirmPassword,
           document: data.document.trim(),
           enterpriseName: data.enterpriseName.trim(),
+          sector: data.sector.trim(),
         });
         navigate(`/entrar?email=${data.email.trim()}`);
         showAlert('Empresa criada com sucesso!', 'success');
@@ -121,6 +123,19 @@ export const SignUp = () => {
               fullWidth
               error={formik.touched.name && Boolean(formik.errors.name)}
               helperText={formik.touched.name && formik.errors.name}
+            />
+          </Grid>
+          <Grid size={12}>
+            <TextField
+              id="sector"
+              name="sector"
+              value={formik.values.sector ?? ''}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              label="Setor *"
+              fullWidth
+              error={formik.touched.sector && Boolean(formik.errors.sector)}
+              helperText={formik.touched.sector && formik.errors.sector}
             />
           </Grid>
           <Grid size={12}>
