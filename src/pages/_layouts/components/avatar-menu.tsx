@@ -56,7 +56,7 @@ export const AvatarMenu = () => {
   return (
     <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
       <IconButton size="small" onClick={handleOpenUserMenu}>
-        <Avatar alt="Foto do colaborador">{employee?.name.charAt(0)}</Avatar>
+        <Avatar alt="Foto do colaborador">{employee?.name?.charAt(0)}</Avatar>
       </IconButton>
       <Menu
         sx={{ mt: '45px' }}
