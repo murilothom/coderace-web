@@ -1,21 +1,23 @@
-FROM node:18-alpine AS builder
+FROM node:18 AS build
 
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-
 RUN npm install
 
 COPY . .
-
 RUN npm run build
 
 FROM nginx:alpine
 
+RUN apk add --no-cache gettext
+
 RUN rm /etc/nginx/conf.d/default.conf
 
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf.template
 
-CMD ["sh", "-c", "envsubst < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+EXPOSE 8080
+
+CMD ["/bin/sh", "-c", "envsubst '${PORT}' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
