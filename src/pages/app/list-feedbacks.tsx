@@ -18,7 +18,9 @@ import type { Breadcrumb } from '../../shared/components/breadcrumbs';
 import Breadcrumbs from '../../shared/components/breadcrumbs';
 import { useAlertContext } from '../../shared/contexts/alert-context';
 import aiService from '../../shared/services/ai-service';
+import enterprisesService from '../../shared/services/enterprise-service';
 import { dataGridComponentTranslation } from '../../shared/utils/data-grid-component-translation';
+import { response } from './temp';
 
 const breadcrumbs: Breadcrumb[] = [
   {
@@ -34,18 +36,26 @@ const breadcrumbs: Breadcrumb[] = [
 ];
 
 export const ListFeedbacks = () => {
-  const [feedbacks, setFeedbacks] = useState<
-    { id: number; sector: string; feedback: string }[]
-  >([]);
+  const [sectors, setSectors] = useState<{ id: number; sector: string }[]>([]);
   const { showAlert } = useAlertContext();
   const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [selectedFeedback, setSelectedFeedback] = useState<string>('');
 
-  const handleOpen = (feedback: string) => {
-    setSelectedFeedback(feedback);
+  const handleOpen = useCallback(async (sector: string) => {
+    setIsLoading(true);
     setOpen(true);
-  };
+    try {
+      const response = await aiService.get(sector);
+      setSelectedFeedback(response[sector]);
+    } catch (error) {
+      if (isAxiosError(error)) {
+        showAlert(error?.response?.data?.message, 'error');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   const handleClose = () => {
     setOpen(false);
@@ -56,16 +66,9 @@ export const ListFeedbacks = () => {
       {
         field: 'sector',
         headerName: 'Setor',
-        flex: 0.3,
+        flex: 0.85,
         resizable: false,
         sortable: true,
-      },
-      {
-        field: 'feedback',
-        headerName: 'Feedback',
-        flex: 0.55,
-        resizable: false,
-        sortable: false,
       },
       {
         field: '#',
@@ -84,7 +87,10 @@ export const ListFeedbacks = () => {
                 alignItems: 'center',
               }}
             >
-              <Button onClick={() => handleOpen(row.feedback)}>
+              <Button
+                onClick={() => handleOpen(row.sector)}
+                disabled={isLoading}
+              >
                 <RemoveRedEye fontSize="small" sx={{ lineHeight: 0 }} />
               </Button>
             </Box>
@@ -92,21 +98,18 @@ export const ListFeedbacks = () => {
         },
       },
     ],
-    [],
+    [isLoading],
   );
 
   const getAiFeedbacks = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await aiService.get();
-      const feedbacks = Object.keys(response).map((key, index) => {
-        return {
-          id: index,
-          sector: key,
-          feedback: response[key],
-        };
-      });
-      setFeedbacks(feedbacks);
+      const response = await enterprisesService.getEnterpriseSectors();
+      const sectors = response.map((sector, index) => ({
+        sector: sector.sector,
+        id: index,
+      }));
+      setSectors(sectors);
     } catch (error) {
       if (isAxiosError(error)) {
         showAlert(error?.response?.data?.message, 'error');
@@ -132,7 +135,7 @@ export const ListFeedbacks = () => {
           <DataGridPro
             localeText={dataGridComponentTranslation}
             columns={columns}
-            rows={feedbacks}
+            rows={sectors}
             getRowId={(row) => row.id}
             loading={isLoading}
             disableColumnFilter

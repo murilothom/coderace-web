@@ -12,7 +12,19 @@ export class EnterprisesService {
     const token = authService.getToken();
 
     return this.service
-      .get(`${this.baseURL}/perfil`, {
+      .get(`${this.baseURL}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((x) => x.data);
+  };
+
+  public getEnterpriseSectors = (): Promise<{ sector: string }[]> => {
+    const token = authService.getToken();
+
+    return this.service
+      .get(`${this.baseURL}/setores`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

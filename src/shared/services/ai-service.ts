@@ -8,19 +8,15 @@ export class AiService {
 
   constructor(private service: Api) {}
 
-  public get = (): Promise<AiFeedbackResponse> => {
+  public get = (id: string): Promise<AiFeedbackResponse> => {
     const token = authService.getToken();
 
     return this.service
-      .post(
-        `${this.baseURL}/processar`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      .get(`${this.baseURL}/processar/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      )
+      })
       .then((x) => x.data);
   };
 }
