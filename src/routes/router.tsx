@@ -9,7 +9,6 @@ import { Home } from '../pages/app/home';
 import { ListEmployees } from '../pages/app/list-employees';
 import { ListFeedbacks } from '../pages/app/list-feedbacks';
 import { Logout } from '../pages/app/logout';
-import { RegisterRecordTime } from '../pages/app/register-record-time';
 import { ResetPassword } from '../pages/app/reset-password';
 import { UpdateEmployee } from '../pages/app/update-employee';
 import { ChangePasswordWithEmailAndCode } from '../pages/public/change-password-with-email-and-code';

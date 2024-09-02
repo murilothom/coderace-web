@@ -50,6 +50,9 @@ export const Home = () => {
       setIsFetchingRecordTimes(true);
       const response = await recordTimesService.getRecordTimesToday();
       setRecordTimesToday(response);
+      if (response !== 1 && response !== 3) {
+        setHasFeedbacked(false);
+      }
     } catch (error) {
       if (isAxiosError(error)) {
         showAlert(error?.response?.data?.message, 'error');

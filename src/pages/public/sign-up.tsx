@@ -13,7 +13,6 @@ import {
   Paper,
   TextField,
   Typography,
-  useTheme,
 } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import { isAxiosError } from 'axios';
@@ -41,7 +40,6 @@ export const SignUp = () => {
   });
   const { showAlert } = useAlertContext();
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const handleGoToSignIn = () => {
     navigate('/entrar');
