@@ -29,12 +29,10 @@ interface EmployeeProviderProps {
 export function EmployeeProvider({ children }: EmployeeProviderProps) {
   const [employee, setEmployee] = useState<Employee | null>(null);
   const [isFetchingEmployee, setIsFetchingEmployee] = useState<boolean>(true);
-  const navigate = useNavigate();
 
   const logout = useCallback(() => {
     authService.logout();
     setEmployee(null);
-    navigate('/entrar', { replace: true });
   }, []);
 
   const fetchEmployee = useCallback(async () => {

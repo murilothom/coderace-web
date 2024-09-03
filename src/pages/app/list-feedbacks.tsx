@@ -44,10 +44,11 @@ export const ListFeedbacks = () => {
 
   const handleOpen = useCallback(async (sector: string) => {
     setIsLoading(true);
-    setOpen(true);
     try {
-      const response = await aiService.get(sector);
-      setSelectedFeedback(response[sector]);
+      const response = await enterprisesService.getSectorInsight(sector);
+      const insight = Object.values(response[0].responses);
+      setSelectedFeedback(insight[0]);
+      setOpen(true);
     } catch (error) {
       if (isAxiosError(error)) {
         showAlert(error?.response?.data?.message, 'error');
@@ -58,6 +59,7 @@ export const ListFeedbacks = () => {
   }, []);
 
   const handleClose = () => {
+    setSelectedFeedback('');
     setOpen(false);
   };
 

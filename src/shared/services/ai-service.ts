@@ -9,14 +9,8 @@ export class AiService {
   constructor(private service: Api) {}
 
   public get = (id: string): Promise<AiFeedbackResponse> => {
-    const token = authService.getToken();
-
     return this.service
-      .get(`${this.baseURL}/processar/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`${this.baseURL}/processar/${id}`)
       .then((x) => x.data);
   };
 }

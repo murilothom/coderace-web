@@ -60,7 +60,7 @@ export const UpdateEmployee = () => {
     validationSchema: saveEmployeeSchema,
     onSubmit: async (data) => {
       try {
-        await employeesService.create({
+        await employeesService.update(id!, {
           email: data.email.trim(),
           name: data.name.trim(),
           role: data.role.trim(),

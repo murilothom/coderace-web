@@ -3,6 +3,11 @@ import { CreateEnterpriseSchema } from '../schemas/create-enterprise-schema';
 import { Enterprise } from '../types/Enterprise';
 import authService from './auth-service';
 
+type Result = {
+  responses: Record<string, string>;
+  sector: string;
+};
+
 export class EnterprisesService {
   private readonly baseURL = `${import.meta.env.VITE_BACKEND_URL}/empresa`;
 
@@ -25,6 +30,18 @@ export class EnterprisesService {
 
     return this.service
       .get(`${this.baseURL}/setores`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((x) => x.data);
+  };
+
+  public getSectorInsight = (sector: string): Promise<Result[]> => {
+    const token = authService.getToken();
+
+    return this.service
+      .get(`${this.baseURL}/setores/${sector}/insight`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
