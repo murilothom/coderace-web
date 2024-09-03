@@ -1,4 +1,5 @@
 import { Add, Edit, Home, Person, RemoveRedEye } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
   Button,
@@ -6,6 +7,9 @@ import {
   DialogContent,
   DialogTitle,
   Grid2,
+  IconButton,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { DataGridPro, GridColDef } from '@mui/x-data-grid-pro';
 import { isAxiosError } from 'axios';
@@ -17,10 +21,8 @@ import remarkGfm from 'remark-gfm';
 import type { Breadcrumb } from '../../shared/components/breadcrumbs';
 import Breadcrumbs from '../../shared/components/breadcrumbs';
 import { useAlertContext } from '../../shared/contexts/alert-context';
-import aiService from '../../shared/services/ai-service';
 import enterprisesService from '../../shared/services/enterprise-service';
 import { dataGridComponentTranslation } from '../../shared/utils/data-grid-component-translation';
-import { response } from './temp';
 
 const breadcrumbs: Breadcrumb[] = [
   {
@@ -41,6 +43,8 @@ export const ListFeedbacks = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [selectedFeedback, setSelectedFeedback] = useState<string>('');
+  const theme = useTheme();
+  const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleOpen = useCallback(async (sector: string) => {
     setIsLoading(true);
@@ -149,8 +153,25 @@ export const ListFeedbacks = () => {
         </Grid2>
       </Grid2>
 
-      <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        maxWidth="md"
+        fullWidth
+        fullScreen={mdDown}
+      >
         <DialogTitle>Detalhes do Feedback</DialogTitle>
+        <IconButton
+          onClick={handleClose}
+          sx={(theme) => ({
+            position: 'absolute',
+            right: 12,
+            top: 12,
+            color: theme.palette.grey[500],
+          })}
+        >
+          <CloseIcon />
+        </IconButton>
         <DialogContent>
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {selectedFeedback}
