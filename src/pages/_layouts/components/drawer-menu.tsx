@@ -1,6 +1,5 @@
-import { Add, Feedback, Person } from '@mui/icons-material';
+import { Feedback, Person } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import {
   Box,
   Drawer,
@@ -13,11 +12,18 @@ import {
   useTheme,
 } from '@mui/material';
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import { Logo } from './logo';
 
-const pages = [
+type Page = {
+  id: number;
+  title: string;
+  icon: JSX.Element;
+  to: string;
+};
+
+const pages: Page[] = [
   {
     id: 1,
     title: 'Colaboradores',
@@ -34,7 +40,13 @@ const pages = [
 
 export const DrawerMenu = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const theme = useTheme();
+
+  const handleNavigate = (page: Page) => {
+    setOpen(false);
+    navigate(page.to);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -95,8 +107,7 @@ export const DrawerMenu = () => {
           {pages.map((page) => (
             <ListItem key={page.id} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
-                component={RouterLink}
-                to={page.to}
+                onClick={() => handleNavigate(page)}
                 sx={[
                   {
                     minHeight: 48,
